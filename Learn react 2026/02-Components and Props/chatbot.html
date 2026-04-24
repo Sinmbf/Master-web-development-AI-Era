@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simple Chatbot</title>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      // Create a component
+      function ChatInput() {
+        return (
+          <>
+            <input
+              type="text"
+              placeholder="Send a message to Chatbot"
+              size="25"
+            />
+            <button>Send</button>
+          </>
+        );
+      }
+
+      function ChatMessage({ message, sender }) {
+        return (
+          <div>
+            {sender === "chatbot" && (
+              <img src="./assets/chatbot-icon.avif" width="40" />
+            )}
+            {message}
+            {sender === "user" && (
+              <img src="./assets/user-icon.avif" width="40" />
+            )}
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <>
+            <ChatInput />
+            <ChatMessage message="Hello chatbot" sender="user" />
+            <ChatMessage
+              message="Hi! what can i do for you?"
+              sender="chatbot"
+            />
+            <ChatMessage
+              message="Can you tell me today's date?"
+              sender="user"
+            />
+            <ChatMessage
+              message={"Today is " + dayjs().format("MMMM D, YYYY")}
+              sender="chatbot"
+            />
+          </>
+        );
+      }
+
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
