@@ -16,13 +16,23 @@
       function ChatInput({ chatMessages, setChatMessages }) {
         // Use state to save the value
         const [inputText, setInputText] = React.useState("");
+
+        const [isLoading, setIsLoading] = React.useState(false);
         // Function to save the input text
         function saveInputText(event) {
           setInputText(event.target.value);
         }
 
         // Function send message on button click
-        function sendMessage() {
+        async function sendMessage() {
+          if (isLoading || inputText === "") {
+            return;
+          }
+
+          // Set isLoading to true at the start, and set it to
+          // false after everything is done.
+          setIsLoading(true);
+          setInputText("");
           // Create a new chat messages array to store the changes
           const newChatMessages = [
             ...chatMessages,
@@ -34,8 +44,16 @@
           ];
           // use the function to update the value by creating a copy of the original value
           setChatMessages(newChatMessages);
+          setChatMessages([
+            ...newChatMessages,
+            {
+              message: "Loading",
+              sender: "chatbot",
+              id: crypto.randomUUID(),
+            },
+          ]);
 
-          const response = Chatbot.getResponse(inputText);
+          const response = await Chatbot.getResponseAsync(inputText);
           setChatMessages([
             ...newChatMessages,
             {
@@ -44,7 +62,12 @@
               id: crypto.randomUUID(),
             },
           ]);
-          setInputText("");
+          setIsLoading(false);
+        }
+
+        function handleKeyDown(e) {
+          e.key === "Enter" && sendMessage();
+          e.key === "Escape" && setInputText("");
         }
 
         return (
@@ -55,6 +78,7 @@
               size="25"
               onChange={saveInputText}
               value={inputText}
+              onKeyDown={handleKeyDown}
             />
             <button onClick={sendMessage}>Send</button>
           </>
