@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Exercise 4.1</title>
+    <style>
+      .on-btn,
+      .off-btn {
+        padding: 10px 20px;
+        border-width: 0;
+        border-radius: 5px;
+        color: white;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        cursor: pointer;
+        width: 80px;
+      }
+
+      .on-btn {
+        background: rgb(25, 135, 84);
+      }
+      .off-btn {
+        background: rgb(220, 53, 69);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function Button({ isButtonOn, setIsButtonOn }) {
+        function handleButtonClick() {
+          setIsButtonOn(!isButtonOn);
+        }
+        return (
+          <button
+            onClick={handleButtonClick}
+            className={isButtonOn ? "on-btn" : "off-btn"}
+          >
+            {isButtonOn ? "On" : "Off"}
+          </button>
+        );
+      }
+      function App() {
+        const [isButtonOn, setIsButtonOn] = React.useState(true);
+        return <Button isButtonOn={isButtonOn} setIsButtonOn={setIsButtonOn} />;
+      }
+      const container = document.querySelector(".root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>

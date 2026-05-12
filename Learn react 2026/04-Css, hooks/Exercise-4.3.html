@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Exercise 4.3</title>
+  </head>
+  <body>
+    <div class="root"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function App() {
+        return "hello";
+      }
+      const container = document.querySelector(".root");
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>
