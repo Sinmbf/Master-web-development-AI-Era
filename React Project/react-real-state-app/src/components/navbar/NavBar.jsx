@@ -7,7 +7,7 @@ const NavBar = ({ user }) => {
 
   // console.log("hello");
   return (
-    <nav className="flex items-center h-15 py-2 bg-white border border-white">
+    <nav className="flex items-center h-15 md:h-25 py-2 bg-white border border-white">
       <div className="navbar-left">
         <a href="/" className="flex items-center gap-2">
           <img
